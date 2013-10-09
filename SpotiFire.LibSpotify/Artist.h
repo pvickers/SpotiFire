@@ -57,6 +57,15 @@ namespace SpotiFire {
 		virtual property String ^Name { String^ get() sealed; }
 
 		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Gets the identifier of the portrait. </summary>
+		///
+		/// <seealso cref="Image::FromId" />
+		/// 
+		/// <value>	The identifier of the portrait. </value>
+		///-------------------------------------------------------------------------------------------------
+		virtual property String ^PortraitId { String ^get() sealed; }
+
+		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Browses the given artist. </summary>
 		///
 		/// <remarks>	Aleksander, 03.02.2013. </remarks>

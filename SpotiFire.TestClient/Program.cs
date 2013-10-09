@@ -137,6 +137,7 @@ namespace SpotiFire.TestClient
 
             var coverId = track.Album.CoverId;
             var image = await Image.FromId(session, coverId);
+            
             var imageData = image.GetImage();
             imageData.Save("cover.jpg");
 

@@ -5,6 +5,19 @@
 
 #define ARTIST_LOADED(ptr) if(!sp_artist_is_loaded(ptr)) throw gcnew NotLoadedException("Artist")
 
+static __forceinline String^ HEX(const byte *bytes, int count)
+{
+	if(bytes==NULL) return String::Empty;
+	char result[41];
+	result[40] = '\0';
+	char *current = result;
+	for(int i = 0; i < count; i++) {
+		sprintf(current, "%02X", bytes[i]);
+		current += 2;
+	}
+	return UTF8(result);
+}
+
 Artist::Artist(SpotiFire::Session ^session, sp_artist *ptr) {
 	SPLock lock;
 	_ptr = ptr;
@@ -43,6 +56,10 @@ String ^Artist::Name::get() {
 	return UTF8(sp_artist_name(_ptr));
 }
 
+String^ Artist::PortraitId::get() {
+	SPLock lock;
+	return HEX(sp_artist_portrait(_ptr, SP_IMAGE_SIZE_NORMAL), 20);
+}
 ArtistBrowse ^Artist::Browse(ArtistBrowseType type) {
 	return ArtistBrowse::Create(_session, this, type);
 }

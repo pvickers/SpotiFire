@@ -9,6 +9,18 @@ namespace SpotiFire
             return Link.Create(session, link);
         }
 
+        public static Link CreateLink(this Artist artist)
+        {
+            return Link.Create(artist);
+        }
+        public static Link CreateLink(this Album album)
+        {
+            return Link.Create(album);
+        }
+        public static Link CreateLink(this Track track)
+        {
+            return Link.Create(track,new TimeSpan(0,0,0));
+        }
         //public static Link<Artist> CreateLink(this Artist artist)
         //{
         //    IntPtr linkPtr, artistPtr;

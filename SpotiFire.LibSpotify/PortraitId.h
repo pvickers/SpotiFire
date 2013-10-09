@@ -11,6 +11,7 @@ namespace SpotiFire {
 	public value class PortraitId sealed : IEquatable<PortraitId> {
 	private:
 		initonly array<byte> ^_data;
+		String^ _asString; 
 
 	internal:
 		PortraitId(const byte *data) {
@@ -18,6 +19,8 @@ namespace SpotiFire {
 			for(int i = 0; i < 20; i++) {
 				_data[i] = data[i];
 			}
+
+			_asString = HEX(data,20);
 		}
 
 		const std::vector<byte> data() {
@@ -27,8 +30,24 @@ namespace SpotiFire {
 			}
 			return ret;
 		}
-
+		static __forceinline String^ HEX(const byte *bytes, int count)
+		{
+			if(bytes==NULL) return String::Empty;
+			char result[41];
+			result[40] = '\0';
+			char *current = result;
+			for(int i = 0; i < count; i++) {
+				sprintf(current, "%02X", bytes[i]);
+				current += 2;
+			}
+			return UTF8(result);
+		}
 	public:
+		
+		virtual String ^ToString() override {
+			return _asString;
+		}
+		
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Gets the hash code for this artistbrowse object. </summary>
 		///
